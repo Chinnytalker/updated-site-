@@ -1,0 +1,144 @@
+.main {
+  height: auto;
+  margin: 0;
+  padding: 5%;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #EFF6FF;
+}
+
+@media (max-width: 600px) {
+  .main, .container-row {
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    margin: auto;
+    padding: 5%;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #EFF6FF;
+  }
+}
+
+.footer {
+  background-color: #a3c1ad;
+  text-align: center;
+  padding: 20px 0;
+}
+
+.footer-link a {
+  text-decoration: none;
+  color: #323232;
+}
+
+.navbar {
+  background-color: #a3c1ad;
+}
+
+.container-trending-recent {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.trending, .recent {
+  flex: 1;
+  padding: 40px 20px;
+  min-width: 300px;
+  max-width: 50%;
+  padding: 1rem;
+  border-radius: 5px;
+}
+
+h3, h1 {
+  color: #a3c1ad;
+}
+
+@media (max-width: 600px) {
+  .container-trending-recent {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .trending, .recent {
+    max-width: 100%;
+    flex: none;
+    width: 90%;
+  }
+}
+
+.trending-slider {
+  margin: auto;
+  display: flex;
+  gap: 1rem;
+  flex-direction: row;
+}
+
+.post-slide {
+  padding: 20px;
+  border: 1px solid #ddd;
+  gap: 10px;
+  border-radius: 5px;
+}
+
+.post-slide img {
+  width: 100%;
+  height: 200px;
+}
+
+.post-slide a {
+  text-decoration: none;
+  color: #323232;
+}
+
+.card-body h4 {
+  color: #a3c1ad;
+}
+
+.card-body a {
+  text-decoration: none;
+  color: #0000ff;
+}
+
+.card-body p {
+  color: #323232;
+}
+
+.card-img-top {
+  width: auto;
+  height: auto;
+}
+
+.a-for-details a {
+  text-decoration: none;
+  color: #0000ff;
+}
+
+.detail-img {
+  width: 200px;
+  height: 200px;
+}
+
+.category-search h3 a {
+  text-decoration: none;
+  color: #323232;
+  height: auto;
+  margin: 0;
+  padding: 5%;
+  width: 100%;
+}
+
+.contact-us-heading {
+  color: #a3c1ad;
+  height: auto;
+  margin: 0;
+  padding: 5%;
+  width: 100%;
+}
+
+.about-us h1 {
+  text-align: center;
+}

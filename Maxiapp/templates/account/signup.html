@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+{% block page_title %} Register {% endblock page_title %}
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100%;">
+    <div class="card p-4" style="width: 100%; max-width: 400px;">
+        <h2 class="text-center mb-4">Register</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="form-floating mb-3">
+                <input type="text" name="username" class="form-control" id="floatingInput1" placeholder="Username" required>
+                <label for="floatingInput1">Username</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="email" name="email" class="form-control" id="floatingInput2" placeholder="name@example.com" required>
+                <label for="floatingInput2">Email address</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="password" name="password1" class="form-control" id="floatingInput3" placeholder="Password" required>
+                <label for="floatingInput3">Password</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="password" name="password2" class="form-control" id="floatingInput4" placeholder="Confirm Password" required>
+                <label for="floatingInput4">Confirm Password</label>
+            </div>
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary">Register</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock content %}

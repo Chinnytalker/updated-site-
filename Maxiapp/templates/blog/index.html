@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+{% block page_title %} MaxiHub {% endblock page_title %}
+
+<main class="main">
+    <h1>News update</h1>
+
+    <section class="trending-recent">
+        <div class="container-trending-recent d-flex">
+            <div class="trending">
+                <h3>Sport</h3>
+                {% if sports_api %}
+                <div class="trending-slider">
+                    {% for post in sports_api %}
+                    <div class="post-slide">
+                        {% if post.thumbnail %}
+                        <img src="{{ post.thumbnail }}" alt="{{ post.title }}" class="post-image">
+                        {% else %}
+                        <p>No Image</p>
+                        {% endif %}
+                        <h4><a href="{{ post.url }}">{{ post.title|slice:":400" }}</a></h4>
+                        <p><a href="{{ post.url }}">{{ post.description|truncatewords:10 }}</a></p>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p>News not available at the moment.</p>
+                {% endif %}
+            </div>
+
+            <div class="recent">
+                <h3>Top Gist</h3>
+                {% if nigeria_news_api %}
+                <div class="trending-slider">
+                    {% for post in nigeria_news_api %}
+                    <div class="post-slide">
+                        {% if post.thumbnail %}
+                        <img src="{{ post.thumbnail }}" alt="{{ post.title }}" class="post-image">
+                        {% else %}
+                        <p>No Image</p>
+                        {% endif %}
+                        <h4><a href="{{ post.url }}">{{ post.title|slice:":400" }}</a></h4>
+                        <p><a href="{{ post.url }}">{{ post.description|truncatewords:10 }}</a></p>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p>News not available at the moment.</p>
+                {% endif %}
+            </div>
+
+            <div class="recent">
+                <h3>Top News</h3>
+                {% if top_news_apis %}
+                <div class="trending-slider">
+                    {% for post in top_news_apis %}
+                    <div class="post-slide">
+                        {% if post.thumbnail %}
+                        <img src="{{ post.thumbnail }}" alt="{{ post.title }}" class="post-image">
+                        {% else %}
+                        <p>No Image</p>
+                        {% endif %}
+                        <h4><a href="{{ post.url }}">{{ post.title|slice:":400" }}</a></h4>
+                        <p><a href="{{ post.url }}">{{ post.description|truncatewords:10 }}</a></p>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p>News not available at the moment.</p>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    {% block posts %}
+    <article>
+        {% if api_news %}
+        <div class="container-post">
+            {% for articles in api_news %}
+            <div class="card mb-4">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        {% if articles.photo_url %}
+                        <img src="{{ articles.photo_url }}" class="img-fluid rounded-start" alt="{{ articles.title }}">
+                        {% else %}
+                        <p>No image</p>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h4 class="card-title">{{ articles.title }}</h4>
+                            <p class="card-text"><small>{{ articles.published_datetime_utc }} || Source: {{ articles.source_name }}</small></p>
+                            <p class="card-text"><small class="text-body-secondary">{{ articles.snippet|slice:":400" }}...</small></p>
+                            <a href="{{ articles.link }}" class="btn btn-primary">Read more...</a>
+
+                            <!-- Share button here -->
+                            <div class="share-buttons">
+                                <h5>Share this post:</h5>
+                                <ul class="list-inline">
+                                    <li class="list-inline-item">
+                                        <a href="http://www.facebook.com/sharer/sharer.php?u={{ articles.link }}" target="_blank" class="btn btn-primary">
+                                            <i class="fab fa-facebook"></i> Facebook
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="http://twitter.com/intent/tweet?url={{ articles.link }}&text={{ articles.title }}" target="_blank" class="btn btn-info">
+                                            <i class="fab fa-twitter"></i> Twitter
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="http://api.whatsapp.com/send?text={{ articles.title }} - {{ articles.link }}" target="_blank" class="btn btn-success">
+                                            <i class="fab fa-whatsapp"></i> WhatsApp
+                                        </a>
+                                    </li>
+                                    <button onclick="copyToClipboard('{{ articles.title }}')" class="btn btn-secondary">Copy Link</button>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p>No news available at the moment.</p>
+        {% endif %}
+    </article>
+    {% endblock posts %}
+
+    <nav aria-label="...">
+        <ul class="pagination">
+            {% if api_news.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page=1">First</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="?page={{ api_news.previous_page_number }}">Previous</a></li>
+            {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">Previous</span>
+            </li>
+            {% endif %}
+            {% for num in api_news.paginator.page_range %}
+            <li class="page-item {% if api_news.number == num %} active {% endif %}"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+            {% endfor %}
+            {% if api_news.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ api_news.next_page_number }}">Next</a>
+            </li>
+            <li class="page-item">
+                <a href="?page={{ api_news.paginator.num_pages }}" class="page-link">Last</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">Next</span>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+</main>
+{% endblock content %}

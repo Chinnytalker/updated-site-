@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+
+{% block page_title %} {{ post.title }} {% endblock page_title %}
+
+
+{% block content %}
+<div class="card mb-3">
+    {% if post.image %}
+<img src="{{ post.image.url }}" class="img-fluid card-img-top" alt="{{ post.title }}">
+{% else %}
+<p>NO image</p>
+{% endif %}
+  <div class="card-body a-for-details">
+    <h1 class="card-title">{{ post.title }}</h1>
+      <small>
+    {{ post.date_created.date }} | Categories:
+    {% for category in post.categories.all %}
+    <a href="{% url 'category' category.name %}">
+        {{ category.name }}
+    </a> | By {{ post.updated_by }}
+    {% endfor %}
+</small>
+    <p class="card-text">{{ post.body | linebreaks }}</p>
+      {% if post.link %}
+       {% if 'youtube.com/watch?v=' in post.link or 'youtu.be' in post.link %}
+        <!-- Embed YouTube Video -->
+        <iframe width="200" height="200"
+            src="{{ post.link|cut:'watch?v='}}embed/"
+            frameborder="0"
+            allowfullscreen>
+        </iframe>
+       {% elif 'vimeo.com' in post.link %}
+        <!-- Embed Vimeo Video -->
+        <iframe width="200" height="200"
+            src="{{ post.link }}"
+            frameborder="0"
+            allowfullscreen>
+        </iframe>
+       {% else %}
+        <p><a href="{{ post.link }}" target="_blank">{{ post.link }}</a></p>
+        {% endif %}
+      {% endif %}
+      <br>
+
+       {% if post.image2 %}
+        <img src="{{ post.image2.url }}" class="img-fluid detail-img" alt="{{ post.title }}">
+         {% endif %}
+       {% if post.image3 %}
+         <img src="{{ post.image3.url }}" class="img-fluid detail-img" alt="{{ post.title }}">
+          {% endif %}
+      <br>
+      {% if post.videos %}
+        <video width="200" height="200" controls>
+            <source src="{{post.videos.url }}" type="video/mp4"> your browser does not support the video tag.
+        </video>
+       {% endif %}
+
+    <div class="share-buttons">
+            <h5>Share this post:</h5>
+        <ul class="list-inline">
+            <li class="list-inline-item">
+                <a href="http://www.facebook.com/sharer/sharer.php?u={{request.build_absolute_uri}}" target="_blank" class="btn btn-primary">
+                    <i class="fab fa-facebook"></i> Facebook
+                </a>
+            </li>
+            <li class="list-inline-item">
+                <a href="http://twitter.com/intent/tweet?url={{ request.build_absolute_uri}}&text={{post.title}}" target="_blank" class="btn btn-info">
+                    <i class="fab fa-twitter"></i>Twitter
+                </a>
+            </li>
+            <li class="list-inline-item">
+                <a href="http://api.whatsapp.com/send?text={{ post.title }}-{{request.build_absolute_uri }}" target="_blank" class="btn btn-success">
+                    <i class="fab fa-whatsapp"></i>WhatsApp
+                </a>
+            </li>
+            <button onclick="copyToClipboard()" class="btn btn-secondary">Copy Link</button>
+        </ul>
+    </div>
+  </div>
+</div>
+
+ <h3>Leave a comment:</h3>
+    <form method="post" class="mb-3">
+        {% csrf_token %}
+        <div>
+            {{ form.author }}
+        </div>
+        <div>
+            {{ form.body}}
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    <h3>Comments:</h3>
+    {% for comment in comments %}
+        <p>
+            On {{ comment.comment_made_on.date }} <b>{{ comment.author }}</b> wrote:
+        <p>
+            {{ comment.comment | linebreaks }}
+        </p>
+    {% endfor %}
+{% endblock content %}

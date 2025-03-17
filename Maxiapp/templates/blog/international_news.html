@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+{% block page_title %} Sports News {% endblock page_title %}
+
+<main class="main">
+    <h1>News Update</h1>
+
+    <article>
+        {% if international_news_api %}
+        <div class="container-post">
+            {% for articles in international_news_api %}
+            <div class="card mb-4">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        {% if articles.images %}
+                        <img src="{{ articles.images.image }}" class="img-fluid rounded-start" alt="{{ articles.title }}">
+                        {% else %}
+                        <p>No image</p>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h4 class="card-title">{{ articles.title }}</h4>
+                            <p class="card-text"><small>{{ articles.timestamp }} || Source: {{ articles.publisher }}</small></p>
+                            <p class="card-text"><small class="text-body-secondary">{{ articles.snippet|slice:":400" }}...</small></p>
+                            <a href="{{ articles.newsUrl }}" class="btn btn-primary">Read more...</a>
+
+                            <!-- Share button starts here -->
+                            <div class="share-buttons">
+                                <h5>Share this post:</h5>
+                                <ul class="list-inline">
+                                    <li class="list-inline-item">
+                                        <a href="http://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" target="_blank" class="btn btn-primary">
+                                            <i class="fab fa-facebook"></i> Facebook
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="http://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}&text={{ articles.title }}" target="_blank" class="btn btn-info">
+                                            <i class="fab fa-twitter"></i> Twitter
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="http://api.whatsapp.com/send?text={{ articles.title }} - {{ request.build_absolute_uri }}" target="_blank" class="btn btn-success">
+                                            <i class="fab fa-whatsapp"></i> WhatsApp
+                                        </a>
+                                    </li>
+                                    <button onclick="copyToClipboard()" class="btn btn-secondary">Copy Link</button>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p>No news available at the moment.</p>
+        {% endif %}
+    </article>
+</main>
+
+{% endblock content %}
