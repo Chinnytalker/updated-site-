@@ -1,1 +1,1 @@
-web: gunicorn Maximusproject.wsgi:application
+web: gunicorn Maximusproject.wsgi
