@@ -21,7 +21,7 @@
                         <p>No Image</p>
                         {% endif %}
                         <h4><a href="{{ post.url }}">{{ post.title|slice:":400" }}</a></h4>
-                        <p><a href="{{ post.url }}">{{ post.description|truncatewords:10 }}</a></p>
+                        <p><a href="{{ post.url}}">{{ post.description|truncatewords:10 }}</a></p>
                     </div>
                     {% endfor %}
                 </div>
@@ -82,8 +82,8 @@
             <div class="card mb-4">
                 <div class="row g-0">
                     <div class="col-md-4">
-                        {% if articles.photo_url %}
-                        <img src="{{ articles.photo_url }}" class="img-fluid rounded-start" alt="{{ articles.title }}">
+                        {% if articles.thumbnail %}
+                        <img src="{{ articles.thumbnail }}" class="img-fluid rounded-start" alt="{{ articles.title }}">
                         {% else %}
                         <p>No image</p>
                         {% endif %}
@@ -91,9 +91,9 @@
                     <div class="col-md-8">
                         <div class="card-body">
                             <h4 class="card-title">{{ articles.title }}</h4>
-                            <p class="card-text"><small>{{ articles.published_datetime_utc }} || Source: {{ articles.source_name }}</small></p>
-                            <p class="card-text"><small class="text-body-secondary">{{ articles.snippet|slice:":400" }}...</small></p>
-                            <a href="{{ articles.link }}" class="btn btn-primary">Read more...</a>
+                            <p class="card-text"><small>{{ articles.date }} || Source: {{ articles.source.name }}</small></p>
+                            <p class="card-text"><small class="text-body-secondary">{{ articles.description|slice:":400" }}...</small></p>
+                            <a href="{{ articles.url }}" class="btn btn-primary">Read more...</a>
 
                             <!-- Share button here -->
                             <div class="share-buttons">

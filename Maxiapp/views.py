@@ -80,11 +80,11 @@ def blog_index(request):
     api_news = cache.get(api_news_cache_key)
     if not api_news:
         api_news = fetch_api_data(
-            url="https://real-time-news-data.p.rapidapi.com/top-headlines",
-            querystring={"limit": "500", "country": "NG", "lang": "en"},
+            url="https://google-news22.p.rapidapi.com/v1/top-headlines",
+            querystring={"country":"ng","language":"en"},
             headers={
                 "x-rapidapi-key": "382018f074mshd68d65e447b48bbp1ea843jsn5c162b7f612d",
-                "x-rapidapi-host": "real-time-news-data.p.rapidapi.com"
+                "x-rapidapi-host": "google-news22.p.rapidapi.com"
             },
         ).get("data", [])
         cache.set(api_news_cache_key, api_news, timeout=60*60*12)
