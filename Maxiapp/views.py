@@ -397,3 +397,12 @@ def search(request):
         'search_results': paginated_search_results,
     }
     return render(request, 'blog/search.html', context)
+
+
+
+
+
+def ads_txt_redirect(request):
+    return HttpResponseRedirect('https://srv.adstxtmanager.com/19390/focushub.ng')
+
+

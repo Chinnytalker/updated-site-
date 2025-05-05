@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import profile
+from .views import profile, ads_txt_redirect
 
 
 urlpatterns = [
@@ -18,6 +18,8 @@ urlpatterns = [
     path("world news/", views.international_news, name="international news"),
     path("Rush Hours/", views.rush_hour, name="rush hour"),
     path('profile/', profile, name='profile'),
+    path('ads.txt', ads_txt_redirect),
+
 
 
 ]
