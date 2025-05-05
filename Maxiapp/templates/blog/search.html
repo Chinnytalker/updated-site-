@@ -6,6 +6,15 @@
 
 {% if query %}
 <h2>Result for "{{ query }}"</h2>
+
+<!-- Ad Placeholder -->
+<div id="ezoic-pub-ad-placeholder-101"></div>
+<script>
+    ezstandalone.cmd.push(function() {
+        ezstandalone.showAds(101);
+    });
+</script>
+
 <div class="search-results">
     {% for post in search_results %}
     <div class="card mb-3" style="max-width: 100%;">

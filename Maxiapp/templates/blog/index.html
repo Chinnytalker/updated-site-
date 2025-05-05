@@ -74,6 +74,15 @@
         </div>
     </section>
 
+        <!-- Ad Placeholder -->
+    <div id="ezoic-pub-ad-placeholder-101"></div>
+    <script>
+        ezstandalone.cmd.push(function() {
+            ezstandalone.showAds(101);
+        });
+    </script>
+
+
     {% block posts %}
     <article>
         {% if api_news %}
@@ -128,6 +137,7 @@
         {% endif %}
     </article>
     {% endblock posts %}
+
 
     <nav aria-label="...">
         <ul class="pagination">
